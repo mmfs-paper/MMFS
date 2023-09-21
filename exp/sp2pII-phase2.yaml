@@ -1,0 +1,49 @@
+common:
+  name: "sp2pII-phase2"
+  model: "style_based_pix2pixII"
+  gpu_ids: [0]
+  option_group:
+    - gpu_ids: [0]
+    - gpu_ids: [1]
+    - gpu_ids: [2]
+
+model:
+  ngf: 64
+
+dataset:
+  unpaired_trainA_folder: "dataset/FFHQ"
+  unpaired_trainB_folder: "dataset/AAHQ"
+  preprocess: ["resize"]
+  batch_size: 8
+  crop_size: 512
+  drop_last: true
+  load_size: 512
+
+training:
+  epoch_as_iter: true
+  n_epochs: 300000
+  n_epochs_decay: 10
+  print_freq: 1000
+  phase: 2 
+  pretrained_model: "pretrained_models/ffhq_pretrain_res512_200000.pt"  # phase1 model
+  save_epoch_freq: 5000
+  style_mixing_prob: 0.5
+  lambda_GAN: 1.0
+  lambda_ST: 0.5  # adjustable parameter
+  option_group:
+    - data_aug_prob: 0.0
+    - data_aug_prob: 0.1
+    - data_aug_prob: 0.2
+  lr: 0.001
+  lr_policy: "linear"
+  beta1: 0.1
+
+testing:
+  num_test: 100000
+  preprocess: ["resize"]
+  load_size: 512
+  crop_size: 512
+  results_dir: "./results/sp2pII"
+  visual_names: ["fake_B"]
+  image_format: "png"
+  which_epoch: "latest"
