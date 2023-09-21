@@ -1,0 +1,4 @@
+example/reference/01.png filter=lfs diff=lfs merge=lfs -text
+example/reference/02.png filter=lfs diff=lfs merge=lfs -text
+example/reference/03.png filter=lfs diff=lfs merge=lfs -text
+example/reference/04.png filter=lfs diff=lfs merge=lfs -text
